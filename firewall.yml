@@ -1,0 +1,12 @@
+---
+- name: Open firewall
+  hosts: all
+  become: true
+  tasks:
+    - name: enable {{ item }} on firewalld
+      firewalld:
+        service: "{{ item }}"
+        state: enabled
+        permanent: true
+        immediate: true
+      loop: "{{ firewall_name | from_yaml }}"

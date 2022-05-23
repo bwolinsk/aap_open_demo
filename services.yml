@@ -1,0 +1,11 @@
+---
+- name: start and enable services
+  hosts: all
+  become: true
+  tasks:
+    - name: enable "{{ item }}"
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop: "{{ service_name | from_yaml }}"
